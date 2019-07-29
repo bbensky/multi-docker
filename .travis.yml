@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ethnopunk/react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+
+script:
+  - docker run ethnopunk/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t ethnopunk/multi-client ./client
+  - docker build -t ethnopunk/multi-nginx ./nginx
+  - docker build -t ethnopunk/multi-server ./server
+  - docker build -t ethnopunk/multi-worker ./worker
+  - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
+  - docker push ethnopunk/multi-client
+  - docker push ethnopunk/multi-nginx
+  - docker push ethnopunk/multi-server
+  - docker push ethnopunk/multi-worker
