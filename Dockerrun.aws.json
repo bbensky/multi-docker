@@ -10,7 +10,7 @@
     },
     {
       "name": "server",
-      "image": "ethnopunk/mutli-server",
+      "image": "ethnopunk/multi-server",
       "hostname": "api",
       "essential": false,
       "memory": 128
