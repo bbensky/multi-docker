@@ -19,3 +19,20 @@ after_success:
   - docker push ethnopunk/multi-nginx
   - docker push ethnopunk/multi-server
   - docker push ethnopunk/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-2
+  app: multi-cloud
+  env: MultiCloud-env
+  bucket_name: elasticbeanstalk-us-west-2-338430314199
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
+
+
+
